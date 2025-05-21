@@ -9,6 +9,10 @@ import LoadingOverlay from "./components/loading-overlay";
 import TopNavbar from "./components/layout/top-navbar";
 import Sidebar from "./components/layout/sidebar";
 import Home from "./pages/home";
+import Inventory from "./pages/inventory";
+import Categories from "./pages/categories";
+import Reports from "./pages/reports";
+import Settings from "./pages/settings";
 import Suppliers from "./pages/suppliers";
 import Orders from "./pages/orders";
 import Outputs from "./pages/outputs";
@@ -18,6 +22,10 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/inventory" component={Inventory} />
+      <Route path="/categories" component={Categories} />
+      <Route path="/reports" component={Reports} />
+      <Route path="/settings" component={Settings} />
       <Route path="/suppliers" component={Suppliers} />
       <Route path="/orders" component={Orders} />
       <Route path="/outputs" component={Outputs} />
