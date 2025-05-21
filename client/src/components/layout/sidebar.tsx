@@ -25,22 +25,22 @@ export default function Sidebar() {
       isActive: location === '/inventory' 
     },
     { 
-      name: 'Categorias', 
-      icon: 'category', 
-      path: '/categories', 
-      isActive: location === '/categories' 
+      name: 'Fornecedores', 
+      icon: 'local_shipping', 
+      path: '/suppliers', 
+      isActive: location === '/suppliers' 
     },
     { 
-      name: 'Relatórios', 
-      icon: 'bar_chart', 
-      path: '/reports', 
-      isActive: location === '/reports' 
+      name: 'Compras', 
+      icon: 'shopping_cart', 
+      path: '/orders', 
+      isActive: location === '/orders' 
     },
     { 
-      name: 'Configurações', 
-      icon: 'settings', 
-      path: '/settings', 
-      isActive: location === '/settings' 
+      name: 'Saídas', 
+      icon: 'logout', 
+      path: '/outputs', 
+      isActive: location === '/outputs' 
     },
   ];
 
