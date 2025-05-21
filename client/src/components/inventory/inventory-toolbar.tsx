@@ -1,15 +1,35 @@
 import { useInventory } from "@/contexts/inventory-context";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 interface InventoryToolbarProps {
   onAddItem: () => void;
+  onViewModeChange?: (mode: "list" | "grid") => void;
 }
 
-export default function InventoryToolbar({ onAddItem }: InventoryToolbarProps) {
+export default function InventoryToolbar({ onAddItem, onViewModeChange }: InventoryToolbarProps) {
   const { setCategoryFilter, categoryFilter } = useInventory();
   const [viewMode, setViewMode] = useState<"list" | "grid">("list");
+  
+  // Carrega o modo de visualização salvo do localStorage
+  useEffect(() => {
+    const savedViewMode = localStorage.getItem("viewMode") as "list" | "grid" | null;
+    if (savedViewMode) {
+      setViewMode(savedViewMode);
+      if (onViewModeChange) {
+        onViewModeChange(savedViewMode);
+      }
+    }
+  }, [onViewModeChange]);
+  
+  const handleViewModeChange = (mode: "list" | "grid") => {
+    setViewMode(mode);
+    localStorage.setItem("viewMode", mode);
+    if (onViewModeChange) {
+      onViewModeChange(mode);
+    }
+  };
   
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCategoryFilter(e.target.value);
@@ -55,7 +75,7 @@ export default function InventoryToolbar({ onAddItem }: InventoryToolbarProps) {
         <div className="hidden sm:flex items-center space-x-2">
           <motion.button 
             className={`p-2 border border-gray-300 rounded-md ${viewMode === 'grid' ? 'bg-primary-50 text-primary-700' : 'bg-white hover:bg-gray-50'} transition-colors`}
-            onClick={() => setViewMode("grid")}
+            onClick={() => handleViewModeChange("grid")}
             whileTap={{ scale: 0.95 }}
           >
             <span className="material-icons text-current">grid_view</span>
@@ -63,7 +83,7 @@ export default function InventoryToolbar({ onAddItem }: InventoryToolbarProps) {
           
           <motion.button 
             className={`p-2 border border-gray-300 rounded-md ${viewMode === 'list' ? 'bg-primary-50 text-primary-700' : 'bg-white hover:bg-gray-50'} transition-colors`}
-            onClick={() => setViewMode("list")}
+            onClick={() => handleViewModeChange("list")}
             whileTap={{ scale: 0.95 }}
           >
             <span className="material-icons text-current">view_list</span>
